@@ -100,6 +100,17 @@ async function checkIntroMessage() {
     // await introMessage.reactions.removeAll();
     introMessage.react(logoEmoji);
     introMessage.react("🌐");
+    try {
+        for (const reaction of introMessage.reactions.cache.values()) {
+            // await reaction.users.remove(userId);
+            if (reaction.emoji.name === "logo" || reaction.emoji.name === "🌐") {
+                continue;
+            }
+            await reaction.remove();
+        }
+    } catch (error) {
+        console.error('Failed to remove reactions.', error);
+    }
 }
 
 // let questMessage;
@@ -131,12 +142,14 @@ async function checkDefaultMessages() {
 }
 
 const girlsRatingChannel = "1012288950410432513";
+const girlsNSFWRatingChannel = "1012457335756705792";
 
 async function checkMissDiscord() {
     const today = new Date();
-    if (today.getDay() === 4) {
-        await processMissDiscord(girlsRatingChannel);
+    if (today.getDay() === 3) {
+        await processMissDiscord(girlsRatingChannel, "1017335739601661993");
     }
+
 }
 
 client.on('ready', async () => {
@@ -161,9 +174,9 @@ const emojiPoints = {
     '🔟': 5,
 };
 
-async function processMissDiscord(channelId) {
+async function processMissDiscord(channelId, missChannelId) {
     const channel = await client.channels.fetch(channelId);
-    const missChannel = await client.channels.fetch("1017335739601661993");
+    const missChannel = await client.channels.fetch(missChannelId);
     const lastMiss = (await missChannel.messages.fetch({ limit: 1 })).first();
     if (lastMiss) {
         const lastMissDate = new Date(lastMiss.createdTimestamp);
@@ -176,10 +189,14 @@ async function processMissDiscord(channelId) {
 
     let before = undefined;
     const collection = [];
+    const newerThan = new Date();
+    newerThan.setDate(newerThan.getDate() - 7);
+
     while (true) {
         const messages = await channel.messages.fetch({ limit: 100, before });
         for (const [id, message] of messages) {
             const createdAt = new Date(message.createdTimestamp);
+            if (createdAt < newerThan && lastMiss) continue;
             const emojis = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
             let points = 0;
             const reactions = {};
