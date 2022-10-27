@@ -6,84 +6,101 @@ const client = new Client({
     partials: [Partials.Message, Partials.Channel, Partials.Reaction],
 });
 
-const defaultChannelId = "1001506782100856964";
+const defaultChannelId = "1035231267060461649";
 const questChannelId = "1002307353170944031";
-const logoEmoji = "<:logo:1002265711927889960>";
-const questCompleteEmoji = "<:quest_complete:1002313233992007831>";
+const logoEmoji = "<a:GIGACHAD:1035296239069175878>";
+const questCompleteEmoji = "<:quest_complete:1035303976700223580>";
+const gigaChadEmoji = "<a:GIGACHAD:1035296239069175878>";
 
 const introDesc = `
-Než se k nám budeš moci připojit, bylo by od tebe pěkné, kdyby ses nám trochu představil/a.
+Before you join us, it would be nice if you could introduce yourself a bit.
     
-__Kdo jsi a co tě k nám přivádí?__
-*Jsem* ${logoEmoji} ***Člen***
-*Jsem* :globe_with_meridians: ***Návštěvník***`;
+__Who are you and what brings you to us?__
+*I am a* ${logoEmoji} ***Member***
+*I am a* :globe_with_meridians: ***Stranger***`;
 
 
 const prequestDesc = `
-Vybral jsi, že jsi člen, ale někdo z vedení bude stále muset ověřit, že jsi doopravdy členem guildy než se ti vše zpřístupní. A hlav...*(Mrak prázdnoty se zjevil přímo za tvými zády)* .
+You have chosen to be a member, but someone from the leadership will still have to verify that you are indeed a member of the guild before everything is made available to you. And most impo...*(${gigaChadEmoji} has appeared right behind your back)* .
 
-Lekneš se, otočíš se a vidíš, jak mrak postupně mizí. Uvnitř něj si všimneš zjevujícího se pergamenu, na kterém je něco napsáno. Vezmeš pergamen do ruky a čteš:`;
+As a virgin, you're about to shit yourself from all the perfection he's exuding. "Tell me who the fuck you are?", he asked.`;
 
 function questDescFilled(name) {
     return `${prequestDesc}
-\`\`\`Jsem připraven/a vstoupit do světa šílenství.
-Jméno: ${name || '___________'}\`\`\`
-Napíšeš jméno, které máš ve hře a...`
+Scared shitless you'll say your name in your virgin voice.
+\`\`\`
+Name: ${name || '___________'}\`\`\``
 }
 
 function classDescFilled(name) {
-    return `Inkoust na pergamenu se najednou dal do pohybu. Přelíval se ze strany na stranu, dokud nezačal opět formovat text.
+    return `He beat you up anyway. You scream and cry and call your mom until she comes. Chad notices her and turns toward her. Tell me what class you're or I'll bang your mom.
 
    \`\`\`Class: ${name || '___________'}\`\`\`
 `;
 }
 
 function raceDescFilled(name) {
-    return `Inkoust zopakoval své obvyklé pohyby a proměnil se v další text.
+    return `"What's your race?", he asked while banging your mom.
 
-   \`\`\`Rasa: ${name || '___________'}\`\`\`
-Těsně po vyplnění se ti pergamen rozpadne v rukou a zmizí. Konečně ses ho zbavil.
+   \`\`\`Race: ${name || '___________'}\`\`\`
+Right after you answer his question you are covered in cum. He laughs at you and goes away with your mum in his arms.
 `;
 }
 
 
 function interestDescFilled() {
-    return `Otočíš se zpět na chlápka, který tě přivítal a ten povídá: \*"Mám pro tebe poslední úkol. Vyber si, kterým směrem se chceš vydat. Nebo si myslíš, že jsi tak dobrý, že zvládneš obě cesty naráz? HAHAHA"\*, zasmál se pohrdavě a sám utekl jako největší sráč.
+    return `You lie in the pool of your tears and feel yourself slowly becoming a man. You wipe the last tear from your eye and suddenly you can see clearly the path to your new self.
     
     💀 \*\*PvE\*\*
     ⚔ \*\*PvP\*\*
 `;
 }
 
+function ending() {
+    return `Before you set off on your journey, prepare a few things:
+    
+    Our Own Guild Addon: https://www.curseforge.com/wow/addons/bohemian
+    Read Rules: https://discordapp.com/channels/1035231266330652722/1035231267555393579
+    
+    Wait until you are verified.
+`;
+}
+
 const introEmbed = new EmbedBuilder()
     .setColor(0x5500c9)
     .setURL('https://discord.js.org/')
-    .setAuthor({name: 'Vítej cizinče!', iconURL: 'https://xn--la-mia8p.eu/dom/Quest_Avail_16x16.webp'})
+    .setAuthor({name: 'Welcome stranger!', iconURL: 'https://xn--la-mia8p.eu/onlychads/Quest_Avail_16x16.webp'})
     .setDescription(introDesc)
-    .setThumbnail('https://xn--la-mia8p.eu/dom/logo.png');
+    .setThumbnail('https://xn--la-mia8p.eu/onlychads/logo.png');
 
 const questEmbed = new EmbedBuilder()
     .setColor(0xffdf19)
-    .setAuthor({name: 'Podmínky vstupu', iconURL: 'https://xn--la-mia8p.eu/dom/Quest_Avail_16x16.webp'})
+    .setAuthor({name: 'Terms of Entry', iconURL: 'https://xn--la-mia8p.eu/onlychads/Quest_Avail_16x16.webp'})
     .setDescription(questDescFilled())
-    .setThumbnail('https://xn--la-mia8p.eu/dom/inv_inscription_parchmentvar03.jpg');
+    .setThumbnail('https://xn--la-mia8p.eu/onlychads/inv_inscription_parchmentvar03.jpg');
 
 const classEmbed = new EmbedBuilder()
     .setColor(0xffdf19)
-    .setAuthor({name: 'Výběr class', iconURL: 'https://xn--la-mia8p.eu/dom/Quest_Avail_16x16.webp'})
+    .setAuthor({name: 'Class selection', iconURL: 'https://xn--la-mia8p.eu/onlychads/Quest_Avail_16x16.webp'})
     .setDescription(classDescFilled())
-    .setThumbnail('https://xn--la-mia8p.eu/dom/inv_inscription_parchmentvar03.jpg');
+    .setThumbnail('https://xn--la-mia8p.eu/onlychads/inv_inscription_parchmentvar03.jpg');
 
 const raceEmbed = new EmbedBuilder()
     .setColor(0xffdf19)
-    .setAuthor({name: 'Výběr rasy', iconURL: 'https://xn--la-mia8p.eu/dom/Quest_Avail_16x16.webp'})
+    .setAuthor({name: 'Race selection', iconURL: 'https://xn--la-mia8p.eu/onlychads/Quest_Avail_16x16.webp'})
     .setDescription(raceDescFilled())
-    .setThumbnail('https://xn--la-mia8p.eu/dom/inv_inscription_parchmentvar03.jpg');
+    .setThumbnail('https://xn--la-mia8p.eu/onlychads/inv_inscription_parchmentvar03.jpg');
 const interestEmbed = new EmbedBuilder()
     .setColor(0xffdf19)
-    .setAuthor({name: 'Výběr zájmů', iconURL: 'https://xn--la-mia8p.eu/dom/Quest_Avail_16x16.webp'})
+    .setAuthor({name: 'Choice of interests', iconURL: 'https://xn--la-mia8p.eu/onlychads/Quest_Avail_16x16.webp'})
     .setDescription(interestDescFilled())
-    .setThumbnail('https://xn--la-mia8p.eu/dom/logo.png');
+    .setThumbnail('https://xn--la-mia8p.eu/onlychads/logo.png');
+
+const endingEmbed = new EmbedBuilder()
+    .setColor(0xffdf19)
+    .setAuthor({name: 'Journey begins', iconURL: 'https://xn--la-mia8p.eu/onlychads/Quest_Avail_16x16.webp'})
+    .setDescription(ending())
+    .setThumbnail('https://xn--la-mia8p.eu/onlychads/logo.png');
 
 let introMessage;
 
@@ -141,13 +158,13 @@ async function checkDefaultMessages() {
     // checkQuestMessage();
 }
 
-const girlsRatingChannel = "1012288950410432513";
+const girlsRatingChannel = "1035231269023399991";
 const girlsNSFWRatingChannel = "1012457335756705792";
 
 async function checkMissDiscord() {
     const today = new Date();
     if (today.getDay() === 3) {
-        await processMissDiscord(girlsRatingChannel, "1017335739601661993");
+        await processMissDiscord(girlsRatingChannel, "1035231269023399992");
     }
 
 }
@@ -200,15 +217,18 @@ async function processMissDiscord(channelId, missChannelId) {
             const emojis = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
             let points = 0;
             const reactions = {};
+            let total = 0;
             for (const emoji of emojis) {
                 const res = await message.reactions.resolve(`${emoji}\u20e3`);
                 reactions[emoji] = res ? res.me ? res.count - 1 : res.count : undefined;
                 points += emojiPoints[emoji] * reactions[emoji];
+                total += reactions[emoji];
             }
             const res = await message.reactions.resolve(`🔟`);
             reactions[`🔟`] = res ? res.me ? res.count - 1 : res.count : undefined;
+            total += reactions[`🔟`];
             points += emojiPoints[`🔟`] * reactions[`🔟`];
-
+            points = points / total;
             collection.push({
                 message,
                 createdAt,
@@ -229,11 +249,11 @@ async function processMissDiscord(channelId, missChannelId) {
         if (attachment) {
             const embed = new EmbedBuilder()
                 .setColor(0xffdf19)
-                .setDescription("Vítám vás v tento slavnostní moment, kdy objevíme krásy světa a nové bojovnice za světový mír. Ale dost bylo řečí. Není čas otálet. Pojďme k vyhlášení... " +
-                    "\n\nVítězem **Miss Discord** za nejhezčí dívku tohoto týdne se s **" + winner.points + "** body stává...")
+                .setDescription("I welcome you to this solemn moment when we will discover the beauty of the world and new warriors for world peace. But enough talk. There is no time to delay. Let's get to the announcement... " +
+                    "\n\nThe winner of **Miss Discord** for this week's prettiest girl with **" + winner.points + "** points is...")
                 .addFields(
-                    { name: 'Autor', value: `<@${winner.message.author.id}>`, inline: true  },
-                    { name: 'Odměna', value: '50 🪙', inline: true },
+                    { name: 'Author', value: `<@${winner.message.author.id}>`, inline: true  },
+                    { name: 'Reward', value: '50 🪙', inline: true },
                 )
                 .setTimestamp()
                 .setImage(attachment.attachment)
@@ -249,23 +269,23 @@ async function processMissDiscord(channelId, missChannelId) {
 
 const usersForRename = new Map();
 const classEmojis = new Map([
-    ['deathknight', "<:deathknight:1002265957491810314>"],
-    ['druid', "<:druid:1002265938588078161>"],
-    ['hunter', "<:hunter:1002265974248050839>"],
-    ['mage', "<:mage:1002265982447923341>"],
-    ['paladin', "<:paladin:1002266013527707699>"],
-    ['priest', "<:priest:1002266000097558688>"],
-    ['rogue', "<:rogue:1002265990551326790>"],
-    ['shaman', "<:shaman:1002265929914257478>"],
-    ['warlock', "<:warlock:1002266007567614072>"],
-    ['warrior', "<:warrior:1002265965096079491>"],
+    ['deathknight', "<:deathknight:1035297188827365537>"],
+    ['druid', "<:druid:1035297190186340453>"],
+    ['hunter', "<:hunter:1035297380205072474>"],
+    ['mage', "<:mage:1035297191696277544>"],
+    ['paladin', "<:paladin:1035297192979746836>"],
+    ['priest', "<:priest:1035297186986082305>"],
+    ['rogue', "<:rogue:1035297185404833833>"],
+    ['shaman', "<:shaman:1035305268055117944>"],
+    ['warlock', "<:warlock:1035297184062652436>"],
+    ['warrior', "<:warrior:1035297182858879006>"],
 ]);
 const raceEmojis = new Map([
-    ['human', "<:human:1002287182125465640>"],
-    ['dwarf', "<:dwarf:1002287183337623584>"],
-    ['gnome', "<:gnome:1002287192091152415>"],
-    ['nightelf', "<:nightelf:1002287179189461053>"],
-    ['draenei', "<:draenei:1002287180519047360>"],
+    ['human', "<:human:1035297894351249428>"],
+    ['dwarf', "<:dwarf:1035297893030056026>"],
+    ['gnome', "<:gnome:1035297895567601775>"],
+    ['nightelf', "<:nightelf:1035297898344218785>"],
+    ['draenei', "<:draenei:1035297896888803328>"],
 ]);
 const classEmojiRoles = new Map([['deathknight', "Death Knight"], ['druid', "Druid"], ['hunter', "Hunter"], ['mage', "Mage"], ['paladin', "Paladin"], ['priest', "Priest"], ['rogue', "Rogue"], ['shaman', "Shaman"], ['warlock', "Warlock"], ['warrior', "Warrior"],]);
 const raceEmojiRoles = new Map([
@@ -311,11 +331,11 @@ client.on('messageReactionAdd', async (reaction, user) => {
     if (reaction.message.id === introMessage.id) {
         if (reaction.emoji.name === "🌐") {
             const member = getMember(user.id);
-            await member.roles.add(getGuild().roles.cache.find(role => role.name === "Cizinec"));
+            await member.roles.add(getGuild().roles.cache.find(role => role.name === "Stranger"));
         }
-        if (reaction.emoji.name === 'logo') {
+        if (reaction.emoji.name === 'GIGACHAD') {
             const userDm = await user.createDM();
-            const [questMessage, embed] = await findEmbedByAuthorName(userDm.id, "Podmínky vstupu");
+            const [questMessage, embed] = await findEmbedByAuthorName(userDm.id, "Terms of Entry");
             if (questMessage) {
                 await questMessage.react("✏");
                 return;
@@ -326,14 +346,14 @@ client.on('messageReactionAdd', async (reaction, user) => {
             usersForRename.set(user.id, user);
         }
     } else if (reaction.emoji.name === 'quest_complete' && reaction.message.channel instanceof DMChannel) {
-        const [questMessage, embed] = await findEmbedByAuthorName(reaction.message.channel.id, "Podmínky vstupu");
+        const [questMessage, embed] = await findEmbedByAuthorName(reaction.message.channel.id, "Terms of Entry");
         const member = getMember(user.id);
         const nickName = member.displayName;
         const newEmbed = EmbedBuilder.from(embed).setDescription(questDescFilled(nickName));
         await questMessage.edit({embeds: [newEmbed]});
         usersForRename.delete(user.id);
-        await member.roles.add(getGuild().roles.cache.find(role => role.name === "Neověřený člen"));
-        const [classMessage2] = await findEmbedByAuthorName(reaction.message.channel.id, "Výběr class");
+        await member.roles.add(getGuild().roles.cache.find(role => role.name === "Unverified Member"));
+        const [classMessage2] = await findEmbedByAuthorName(reaction.message.channel.id, "Class selection");
         if (classMessage2) return;
         const classMessage = await user.send({embeds: [classEmbed]});
         for (const [key, emoji] of classEmojis.entries()) {
@@ -346,10 +366,10 @@ client.on('messageReactionAdd', async (reaction, user) => {
             await member.roles.remove(getRoleFromEmoji(key));
         }
         await member.roles.add(role);
-        const [questMessage, embed] = await findEmbedByAuthorName(reaction.message.channel.id, "Výběr class");
+        const [questMessage, embed] = await findEmbedByAuthorName(reaction.message.channel.id, "Class selection");
         const newEmbed = EmbedBuilder.from(embed).setDescription(classDescFilled(role.name));
         await questMessage.edit({embeds: [newEmbed]});
-        const [questMessage2, embed2] = await findEmbedByAuthorName(reaction.message.channel.id, "Výběr rasy");
+        const [questMessage2, embed2] = await findEmbedByAuthorName(reaction.message.channel.id, "Race selection");
         if (!questMessage2) {
             const message = await user.send({embeds: [raceEmbed]});
             for (const [key, emoji] of raceEmojis.entries()) {
@@ -363,17 +383,22 @@ client.on('messageReactionAdd', async (reaction, user) => {
             await member.roles.remove(getRoleFromRaceEmoji(key));
         }
         await member.roles.add(role);
-        const [questMessage, embed] = await findEmbedByAuthorName(reaction.message.channel.id, "Výběr rasy");
+        const [questMessage, embed] = await findEmbedByAuthorName(reaction.message.channel.id, "Race selection");
         const newEmbed = EmbedBuilder.from(embed).setDescription(raceDescFilled(role.name));
         await questMessage.edit({embeds: [newEmbed]});
 
-        const [questMessage2, embed2] = await findEmbedByAuthorName(reaction.message.channel.id, "Výběr zájmů");
+        const [questMessage2, embed2] = await findEmbedByAuthorName(reaction.message.channel.id, "Choice of interests");
         if (!questMessage2) {
             const message = await user.send({embeds: [interestEmbed]});
             await message.react("💀");
             await message.react("⚔");
-
         }
+    } else if (reaction.message.channel instanceof DMChannel && (reaction.emoji.name === "💀" || reaction.emoji.name === "⚔")) {
+        const [endMessage, embed2] = await findEmbedByAuthorName(reaction.message.channel.id, "Journey begins");
+        if (!endMessage) {
+            await user.send({embeds: [endingEmbed]});
+        }
+
     }
 });
 
@@ -392,7 +417,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
     if (reaction.message.id === introMessage.id) {
         if (reaction.emoji.name === "🌐") {
             const member = getMember(user.id);
-            await member.roles.remove(getGuild().roles.cache.find(role => role.name === "Cizinec"));
+            await member.roles.remove(getGuild().roles.cache.find(role => role.name === "Stranger"));
         }
     }
     if (reaction.emoji.name === "⚔" && reaction.message.channel instanceof DMChannel) {
@@ -406,7 +431,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
 });
 
 function getGuild() {
-    return client.guilds.cache.get('1001502960095871047');
+    return client.guilds.cache.get('1035231266330652722');
 }
 
 function getMember(id) {
@@ -433,7 +458,7 @@ client.on('messageCreate', async message => {
         }
 
     }
-    if (message.channelId === "1012288950410432513" || message.channelId === "1012457335756705792") {
+    if (message.channelId === "1035231269023399991") {
         if (message.attachments.size > 0) {
             const emojis = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
             for (const emoji of emojis) {
@@ -458,8 +483,8 @@ client.on('messageDelete', async message => {
 });
 client.on('guildMemberUpdate', async (oldMember, newMember) => {
     console.log(oldMember, newMember);
-    const isMember = newMember.roles.cache.find(r => r.name === "Člen");
-    const isUnverifiedMember = newMember.roles.cache.find(r => r.name === "Neověřený člen");
+    const isMember = newMember.roles.cache.find(r => r.name === "Member");
+    const isUnverifiedMember = newMember.roles.cache.find(r => r.name === "Unverified Member");
     if (isMember && isUnverifiedMember) {
         await newMember.roles.remove(isUnverifiedMember);
     }
